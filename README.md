@@ -13,7 +13,7 @@ E5 Peso 2 Calorías: 3 |
 # Ver el proyecto desplegado
 # --> https://excursionproject-1.onrender.com/
 
-![Image Alt](https://github.com/dilanReyes/ExcursionProject/blob/893ffe7ae117b9fbadb1d74bb9541a4eef1248a4/Capturadepantallaproyecto.png)
+![Image Alt](https://github.com/dilanReyes/ExcursionProject/blob/0cd2178d8c69f274f846a063b21e4ef0995e024a/Capturas/Capturadepantallaproyecto.png)
 ![Image Alt](https://github.com/dilanReyes/ExcursionProject/blob/0cd2178d8c69f274f846a063b21e4ef0995e024a/Capturas/Capturadepantallaproyecto2.png)
 ![Image Alt](https://github.com/dilanReyes/ExcursionProject/blob/0cd2178d8c69f274f846a063b21e4ef0995e024a/Capturas/Capturadepantallaproyecto3.png)
 ![Image Alt](https://github.com/dilanReyes/ExcursionProject/blob/0cd2178d8c69f274f846a063b21e4ef0995e024a/Capturas/Capturadepantallaproyecto4.png)
