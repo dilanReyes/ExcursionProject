@@ -6,16 +6,30 @@ EXPOSE 80
 # Usar la imagen SDK de .NET para construir la aplicación
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
+
+# Copiar el archivo .csproj
 COPY ["ExcursionistaAPI/ExcursionistaAPI.csproj", "ExcursionistaAPI/"]  # Copiar el archivo .csproj
-RUN dotnet restore "ExcursionistaAPI/ExcursionistaAPI.csproj"  # Restaurar dependencias
+
+# Restaurar las dependencias
+RUN dotnet restore "ExcursionistaAPI/ExcursionistaAPI.csproj"
+
+# Copiar todo el contenido desde la carpeta ExcursionistaAPI al contenedor
 COPY ExcursionistaAPI/. ./ExcursionistaAPI/  # Copiar todo desde ExcursionistaAPI
+
+# Establecer el directorio de trabajo en ExcursionistaAPI
 WORKDIR "/src/ExcursionistaAPI"
-RUN dotnet build "ExcursionistaAPI.csproj" -c Release -o /app/build  # Construir el proyecto
+
+# Construir el proyecto
+RUN dotnet build "ExcursionistaAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "ExcursionistaAPI.csproj" -c Release -o /app/publish  # Publicar la aplicación
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .  # Copiar los archivos publicados
-ENTRYPOINT ["dotnet", "ExcursionistaAPI.dll"]  # Iniciar la aplicación
+
+# Copiar los archivos publicados al contenedor final
+COPY --from=publish /app/publish .
+
+# Definir el comando de inicio
+ENTRYPOINT ["dotnet", "ExcursionistaAPI.dll"]
