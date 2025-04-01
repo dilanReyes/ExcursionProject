@@ -13,7 +13,7 @@ document.getElementById('formSeleccion').addEventListener('submit', async functi
     mensajeDiv.innerHTML = '';
 
     try {
-        const response = await fetch('http://localhost:5193/api/excursion/seleccionar', {
+        const response = await fetch('https://excursionproject.onrender.com/api/excursion/seleccionar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
