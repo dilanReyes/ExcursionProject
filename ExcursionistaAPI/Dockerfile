@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["ExcursionistaAPI/ExcursionistaAPI.csproj", "ExcursionistaAPI/"]  # Copiar el archivo .csproj
 RUN dotnet restore "ExcursionistaAPI/ExcursionistaAPI.csproj"  # Restaurar dependencias
-COPY . .  # Copiar el resto de los archivos
+COPY ExcursionistaAPI/. ./ExcursionistaAPI/  # Copiar todo desde ExcursionistaAPI
 WORKDIR "/src/ExcursionistaAPI"
 RUN dotnet build "ExcursionistaAPI.csproj" -c Release -o /app/build  # Construir el proyecto
 
