@@ -1,36 +1,34 @@
-# Etapa de construcción
+# Usamos la imagen base de .NET SDK para compilar el proyecto
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
-# Directorio de trabajo en el contenedor
+# Establecer el directorio de trabajo
 WORKDIR /src
 
-# Copiar el archivo .csproj y restaurar dependencias
-COPY ["ExcursionistaAPI/ExcursionistaAPI.csproj", "ExcursionistaAPI/"]
-RUN dotnet restore "ExcursionistaAPI/ExcursionistaAPI.csproj"
+# Copiar el archivo .csproj del proyecto ExcursionistaAPI
+COPY ["ExcursionistaAPI.csproj", "./"]
 
-# Copiar el resto de los archivos de la aplicación
-COPY ExcursionistaAPI/. ./ExcursionistaAPI/
+# Restaurar las dependencias del proyecto
+RUN dotnet restore "ExcursionistaAPI.csproj"
+
+# Copiar el resto de los archivos del proyecto
+COPY ./ExcursionistaAPI/. ./ExcursionistaAPI/
 
 # Establecer el directorio de trabajo en ExcursionistaAPI
 WORKDIR "/src/ExcursionistaAPI"
 
-# Construir el proyecto
+# Compilar el proyecto
 RUN dotnet build "ExcursionistaAPI.csproj" -c Release -o /app/build
 
-# Publicar el proyecto para producción
+# Publicar la aplicación
 RUN dotnet publish "ExcursionistaAPI.csproj" -c Release -o /app/publish
 
-# Etapa de ejecución
+# Usar la imagen de runtime de .NET para ejecutar la aplicación
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-
-# Establecer el directorio de trabajo
 WORKDIR /app
-
-# Copiar los archivos publicados desde la etapa de construcción
 COPY --from=build /app/publish .
 
-# Exponer el puerto 80 para que la aplicación sea accesible
+# Exponer el puerto 80 para la aplicación
 EXPOSE 80
 
-# Comando para ejecutar la aplicación
+# Establecer el comando para ejecutar la aplicación
 ENTRYPOINT ["dotnet", "ExcursionistaAPI.dll"]
