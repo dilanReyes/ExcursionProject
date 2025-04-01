@@ -1,20 +1,15 @@
-# Usar la imagen base de .NET para ASP.NET
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-WORKDIR /app
-EXPOSE 80
-
-# Usar la imagen SDK de .NET para construir la aplicación
+# Etapa de construcción
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+# Directorio de trabajo en el contenedor
 WORKDIR /src
 
-# Copiar el archivo .csproj
-COPY ["ExcursionistaAPI/ExcursionistaAPI.csproj", "ExcursionistaAPI/"]  # Copiar el archivo .csproj
-
-# Restaurar las dependencias
+# Copiar el archivo .csproj y restaurar dependencias
+COPY ["ExcursionistaAPI/ExcursionistaAPI.csproj", "ExcursionistaAPI/"]
 RUN dotnet restore "ExcursionistaAPI/ExcursionistaAPI.csproj"
 
-# Copiar todo el contenido desde la carpeta ExcursionistaAPI al contenedor
-COPY ExcursionistaAPI/. ./ExcursionistaAPI/  # Copiar todo desde ExcursionistaAPI
+# Copiar el resto de los archivos de la aplicación
+COPY ExcursionistaAPI/. ./ExcursionistaAPI/
 
 # Establecer el directorio de trabajo en ExcursionistaAPI
 WORKDIR "/src/ExcursionistaAPI"
@@ -22,14 +17,20 @@ WORKDIR "/src/ExcursionistaAPI"
 # Construir el proyecto
 RUN dotnet build "ExcursionistaAPI.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "ExcursionistaAPI.csproj" -c Release -o /app/publish  # Publicar la aplicación
+# Publicar el proyecto para producción
+RUN dotnet publish "ExcursionistaAPI.csproj" -c Release -o /app/publish
 
-FROM base AS final
+# Etapa de ejecución
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+
+# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copiar los archivos publicados al contenedor final
-COPY --from=publish /app/publish .
+# Copiar los archivos publicados desde la etapa de construcción
+COPY --from=build /app/publish .
 
-# Definir el comando de inicio
+# Exponer el puerto 80 para que la aplicación sea accesible
+EXPOSE 80
+
+# Comando para ejecutar la aplicación
 ENTRYPOINT ["dotnet", "ExcursionistaAPI.dll"]
