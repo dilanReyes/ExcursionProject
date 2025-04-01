@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Elementos para Escalar el Risco</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-light">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px;">
+            <h2 class="text-center mt-4">Selección de Elementos para Escalar el Risco</h2>
+
+            <form id="formSeleccion" class="mt-5">
+                <div class="mb-3">
+                    <label for="caloriasMinimas" class="form-label">Calorías Mínimas:</label>
+                    <input type="number" class="form-control" id="caloriasMinimas" required>
+                </div>
+                <div class="mb-3">
+                    <label for="pesoMaximo" class="form-label">Peso Máximo:</label>
+                    <input type="number" class="form-control" id="pesoMaximo" required>
+                </div>
+                <button id="submitButton" type="submit" class="btn btn-primary w-100">Seleccionar Elementos</button>
+            </form>
+
+            <div id="mensaje" class="mt-4 text-center"></div>
+
+            <div id="resultados" class="mt-4">
+                <h4>Elementos Seleccionados:</h4>
+                <ul id="listaElementos" class="list-group"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

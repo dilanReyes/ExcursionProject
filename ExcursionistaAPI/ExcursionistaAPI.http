@@ -1,0 +1,6 @@
+@ExcursionistaAPI_HostAddress = http://localhost:5193
+
+GET {{ExcursionistaAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
