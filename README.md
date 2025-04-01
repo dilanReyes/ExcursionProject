@@ -1,3 +1,9 @@
+#Razonamiento Logico
+![Image Alt](https://github.com/dilanReyes/ExcursionProject/blob/495b509f40040a21636abae951ca7d6faefb70b6/Capturas/Razonamientologico.png)
+
+#Ejercicio
+![Image Alt](https://github.com/dilanReyes/ExcursionProject/blob/495b509f40040a21636abae951ca7d6faefb70b6/Capturas/ejercicio2.png)
+
 # Prueba Técnica
 
 ## Requerimiento
